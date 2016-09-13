@@ -20,10 +20,96 @@ using namespace std;
         int score;
     };
 
-    class node
+    class Node
     {
-        Node*
+        public:
+
+        Node* next;
         GameEntry data;
 
+        /* gross junky stuff that c++ requires when classes have dynamic memory */
 
-    };
+    Node( const Node& node ): next( node.next ), data( node.data ) { }
+    Node& operator=( const Node& node )
+    {
+        next = node.next;
+      	data = node.data;
+
+      	return *this;
+    }
+
+    /* Set everything to NULL when initialized */
+
+    Node( ): next( NULL ), data( 0 ) { }
+    Node( GameEntry new_data ): next( NULL ), data( new_data ) { }
+
+    /* Delete everything when node gets deleted */
+
+    ~Node( )
+    {
+        if ( next != NULL )
+            delete next;
+    }
+};
+
+ class List
+ {
+ public:
+
+    Node* head;
+
+    List( const List& list): head( list.head) {}
+    List& operator= (const List& list)
+    {
+        head = list.head;
+        return *this;
+    }
+
+    List()
+    {
+        head = new Node;
+    }
+
+    ~List()
+    {
+       delete head;
+    }
+
+    Node* getFirstNode()
+    {
+        return head;
+    }
+
+    Node* getLastNode()
+    {
+        Node* temp = head;
+
+        while (temp->next != NULL)
+        {
+           temp = temp->next;
+        }
+
+        return temp;
+    }
+
+    GameEntry& getFirst()
+    {
+        return getFirstNode()->data;
+    }
+
+    GameEntry& getLast()
+    {
+        return getLastNode()->data;
+    }
+
+
+
+
+
+
+
+
+ };
+
+
+
