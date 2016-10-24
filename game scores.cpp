@@ -5,7 +5,7 @@ using namespace std;
 
     int main (void)
     {
-
+        return 404;
     }
 
     class GameEntry
@@ -27,7 +27,6 @@ using namespace std;
         Node* next;
         GameEntry data;
 
-        /* gross junky stuff that c++ requires when classes have dynamic memory */
 
     Node( const Node& node ): next( node.next ), data( node.data ) { }
     Node& operator=( const Node& node )
@@ -102,13 +101,17 @@ using namespace std;
         return getLastNode()->data;
     }
 
+    GameEntry getNth( int n )
+    {
+        Node* current = head;
 
+        for ( int i=0; i < n; i++ )
+        {
+            current = current->next;
+        }
 
-
-
-
-
-
+        return current->data;
+    }
  };
 
 
